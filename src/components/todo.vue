@@ -32,12 +32,19 @@
     </nav>
     <div class="content-scrollable list-items">
       <!--容器下半部分-->
+      <div v-for="(item,index) in items" :key="index"> <!-- 这里`v-for`会循环我们在 `data`函数 事先定义好的 ’items‘模拟数据，循环后拿到单个对象，在通过prop把数据传输给子组件 item -->
+        <item :item="item"></item>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import item from './item'
 export default {
+  components: {
+    item
+  },
   data () {
     return {
       todo: { // 详情内容
