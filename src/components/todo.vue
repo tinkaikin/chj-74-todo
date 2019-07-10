@@ -55,7 +55,10 @@ export default {
   },
   methods: {
     onAdd () {
-      console.log(123)
+      this.text = this.text.trim()
+      if (this.text.length === 0) return
+      this.items.push({ checked: false, text: this.text, isDelete: false })
+      this.text = ''
     }
   }
 }
