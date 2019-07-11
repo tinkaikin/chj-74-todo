@@ -5,3 +5,8 @@ export const getTodoList = params => {
     params: params
   })
 }
+// 定义添加目录的post请求
+export const addTodo = params => {
+  // 放回结果的data
+  return axios.post('/todo/addTodo', params).then(res => res.data)
+}

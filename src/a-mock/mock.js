@@ -4,8 +4,8 @@
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-// import Mock from 'mockjs'
-import {Todos} from './data/todoList.js'
+import Mock from 'mockjs'
+import { Todos } from './data/todoList.js'
 
 export default {
   // 调用 start() 初始化
@@ -33,7 +33,24 @@ export default {
           resolve([200, {
             todos: mockTodo // 返回一个数组, 状态码为200, 和重组后的数据
           }])
-        })
+        }, 200)
+      })
+    })
+    // 创建一个添加目录的请求
+    mock.onPost('/todo/addTodo').reply(params => { // 要求params 是个对象并且有规定好的字段
+      // 直接给Todos数组添加数据
+      Todos.push({
+        id: Mock.Random.guid(),
+        title: '新添加目录',
+        locked: false,
+        isDelete: false,
+        record: []
+      })
+      // 下面是规定的方法
+      return new Promise((resolve, reject) => { // 返回 Promise对象
+        setTimeout(() => { // 设置定时器每200毫秒拦截一次
+          resolve([200]) // 拦截成功 放回数据 状态码 200
+        }, 200)
       })
     })
   }
