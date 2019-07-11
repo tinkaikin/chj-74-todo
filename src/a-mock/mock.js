@@ -73,5 +73,26 @@ export default {
         }, 200)
       })
     })
+
+    // 新增一条代办事项
+    mock.onPost('/todo/addRecord').reply(config => {
+      console.log(config)
+      let { id, text } = JSON.parse(config.data)
+      Todos.some((t, index) => { // 查下数组some方法
+        if (t.id === id) {
+          t.record.push({
+            text: text,
+            isDelete: false,
+            checked: false
+          })
+          return true // 为什么返回 布尔值?
+        }
+      })
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200])
+        }, 200)
+      })
+    })
   }
 }
