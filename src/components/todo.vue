@@ -44,6 +44,7 @@
 
 <script>
 import item from './item'
+import {getTodo} from '../api/api.js'
 export default {
   props: ['id'],
   components: {
@@ -51,18 +52,22 @@ export default {
   },
   data () {
     return {
-      todo: { // 详情内容
-        title: '星期一',
-        count: 12,
-        locked: false
-      },
+      todo: {},
+      // todo: { // 详情内容
+      //   title: '星期一',
+      //   count: 12,
+      //   locked: false
+      // },
       items: [ // 代办单项列表
-        { checked: false, text: '新的一天', isDelete: false },
-        { checked: false, text: '新的一天', isDelete: false },
-        { checked: false, text: '新的一天', isDelete: false }
+        // { checked: false, text: '新的一天', isDelete: false },
+        // { checked: false, text: '新的一天', isDelete: false },
+        // { checked: false, text: '新的一天', isDelete: false }
       ],
       text: '' // 新增代办单项绑定的值
     }
+  },
+  created () {
+    this.init(this.id)
   },
   methods: {
     onAdd () {
@@ -70,10 +75,21 @@ export default {
       if (this.text.length === 0) return
       this.items.push({ checked: false, text: this.text, isDelete: false })
       this.text = ''
+    },
+    init (id) {
+      getTodo({id: id}).then(res => {
+        const {status, data} = res
+        if (status === 200) {
+          this.todo = data.todo
+          this.items = data.todo.record
+        }
+      })
     }
   },
-  mounted () {
-    console.log(this.id)
+  watch: {
+    'id' (id) {
+      this.init(id)
+    }
   }
 }
 </script>

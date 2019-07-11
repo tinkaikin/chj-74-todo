@@ -24,9 +24,9 @@ export default {
     return {
       items: [
         // 菜单的模拟数据
-        { title: '星期一', count: 0, locked: true },
-        { title: '星期二', count: 2, locked: true },
-        { title: '星期三', count: 3, locked: false }
+        // { title: '星期一', count: 0, locked: true },
+        // { title: '星期二', count: 2, locked: true },
+        // { title: '星期三', count: 3, locked: false }
       ],
       todoId: ''
     }
@@ -61,8 +61,8 @@ export default {
     }
   },
   watch: {
-    'todoId' (id) {
-      this.$router.push({name: 'todo', params: {id: id}})
+    'todoId' (Id) {
+      this.$router.push({name: 'todo', params: { id: Id }})
     }
   }
 }

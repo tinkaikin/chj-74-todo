@@ -11,4 +11,9 @@ export const addTodo = params => {
   return axios.post('/todo/addTodo', params).then(res => res.data)
 }
 
-// 新增一条代办事项的 post 请求
+// 新增一个请求查询代办单项列表的数据的接口函数
+export const getTodo = params => {
+  return axios.get('/todo/listId', {
+    params: params
+  })
+}

@@ -7,11 +7,11 @@ import MockAdapter from 'axios-mock-adapter'
 import Mock from 'mockjs'
 import { Todos } from './data/todoList.js'
 
+console.log(Todos)
 export default {
   // 调用 start() 初始化
   start () {
     let mock = new MockAdapter(axios) // 创建实例并关联axios
-    console.log(mock)
     mock.onGet('/todo/list').reply(params => {
       let mockTodo = Todos.map(tode => { // 重组 数据
         return {
@@ -56,8 +56,7 @@ export default {
 
     // 通过id 请求数据
     mock.onGet('/todo/listId').reply(config => {
-      console.log(config)
-      let { id } = config.params // params是固定属性?
+      let { id } = config.params // params是固定属性? 是api把params都传过来的
       let todo = Todos.find(todo => {
         return id && todo.id === id
       })
@@ -76,9 +75,8 @@ export default {
 
     // 新增一条代办事项
     mock.onPost('/todo/addRecord').reply(config => {
-      console.log(config)
       let { id, text } = JSON.parse(config.data)
-      Todos.some((t, index) => { // 查下数组some方法
+      Todos.some((t, index) => { // 查下数组some方法 some方法 只要其中一个为true 就会返回true的
         if (t.id === id) {
           t.record.push({
             text: text,
