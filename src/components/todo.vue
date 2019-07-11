@@ -7,6 +7,7 @@
           </span>
         </a>
       </div>
+      <!-- 显示标题和数字模块 -->
       <h1 class="title-page">
         <span class="title-wrapper">{{todo.title}}</span> <!-- 标题-->
         <span class="count-list">{{todo.count}}</span><!-- 数目-->
@@ -24,15 +25,17 @@
           </a>
         </div>
       </div>
-
-      <div class=" form todo-new input-symbol"> <!-- 新增单个代办单项输入框,监听了回车事件，双向绑定text值,监听了disabled属性，在todo.locked为true的情况下无法编辑-->
+      <!-- 新增单个代办单项输入框,监听了回车事件，双向绑定text值,监听了disabled属性，在todo.locked为true的情况下无法编辑-->
+      <div class=" form todo-new input-symbol">
          <input type="text" v-model="text" placeholder='请输入' @keyup.enter="onAdd" :disabled="todo.locked" />
         <span class="icon-add"></span>
       </div>
     </nav>
     <div class="content-scrollable list-items">
+      <!-- <p>{{id}}</p>   测试id能正常传过来 -->
       <!--容器下半部分-->
       <div v-for="(item,index) in items" :key="index"> <!-- 这里`v-for`会循环我们在 `data`函数 事先定义好的 ’items‘模拟数据，循环后拿到单个对象，在通过prop把数据传输给子组件 item -->
+      <!-- 下面应该切换成 2级路由 -->
         <item :item="item"></item>
       </div>
     </div>
@@ -42,6 +45,7 @@
 <script>
 import item from './item'
 export default {
+  props: ['id'],
   components: {
     item
   },
@@ -67,6 +71,9 @@ export default {
       this.items.push({ checked: false, text: this.text, isDelete: false })
       this.text = ''
     }
+  },
+  mounted () {
+    console.log(this.id)
   }
 }
 </script>

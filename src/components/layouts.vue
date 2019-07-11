@@ -4,17 +4,18 @@
       <menus></menus>
     </section>
     <section class="content-container"><!--右边的容器-->
-      <todo></todo>
+      <!-- <todo></todo> 切换成 路由模式-->
+      <router-view></router-view>
     </section>
   </section>
 </template>
 <script>
 import menus from './menus'
-import todo from './todo'
+// import todo from './todo'
 export default {
   components: {
-    menus,
-    todo
+    menus
+    // todo
   }
 }
 </script>
