@@ -83,6 +83,8 @@ export default {
           this.todo = data.todo
           this.items = data.todo.record
         }
+        console.log(this.todo)
+        console.log(this.items)
       })
     }
   },
