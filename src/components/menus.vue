@@ -18,6 +18,7 @@
   </div>
 </template>
 <script>
+import {getTodoList} from '../api/api.js'
 export default {
   data () {
     return {
@@ -27,6 +28,18 @@ export default {
         { title: '星期三', count: 3, locked: false }
       ]
     }
+  },
+  created () {
+    getTodoList({}).then(res => {
+      if (res.status === 200) {
+        this.items = res.data.todos
+      } else {
+        console.log('请求失败')
+      }
+    })
+  },
+  methods: {
+
   }
 }
 </script>

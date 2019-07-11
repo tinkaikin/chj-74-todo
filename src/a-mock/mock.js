@@ -11,7 +11,8 @@ export default {
   // 调用 start() 初始化
   start () {
     let mock = new MockAdapter(axios) // 创建实例并关联axios
-    mock.onGet('/todo/list').reqly(params => {
+    console.log(mock)
+    mock.onGet('/todo/list').reply(params => {
       let mockTodo = Todos.map(tode => { // 重组 数据
         return {
           id: tode.id,
