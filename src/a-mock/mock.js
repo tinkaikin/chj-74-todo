@@ -53,5 +53,25 @@ export default {
         }, 200)
       })
     })
+
+    // 通过id 请求数据
+    mock.onGet('/todo/listId').reply(config => {
+      console.log(config)
+      let { id } = config.params // params是固定属性?
+      let todo = Todos.find(todo => {
+        return id && todo.id === id
+      })
+      todo.count = todo.record.filter(data => {
+        return data.cheched === false
+      }).length
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            todo: todo
+          }])
+        }, 200)
+      })
+    })
   }
 }
