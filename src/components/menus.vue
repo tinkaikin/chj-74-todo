@@ -1,7 +1,7 @@
 <template>
   <div class="list-todos">
     <!--菜单容器-->
-    <a class="list-todo activeListClass list" v-for="(item, index) in items" :key="index">
+    <a class="list-todo activeListClass list" v-for="(item, index) in items" :key="index" @click='goList(item.id)' :class='{"active":item.id === todoId}'>
       <!--单个菜单容器-->
       <span class="icon-lock" v-if="item.locked"></span>
       <!--锁的图标-->
@@ -27,24 +27,32 @@ export default {
         { title: '星期一', count: 0, locked: true },
         { title: '星期二', count: 2, locked: true },
         { title: '星期三', count: 3, locked: false }
-      ]
+      ],
+      todoId: ''
     }
   },
   created () {
     getTodoList({}).then(res => {
       if (res.status === 200) {
         this.items = res.data.todos
+        this.todoId = res.data.todos[0].id
       } else {
         console.log('请求失败')
       }
     })
   },
   methods: {
+    // 点击那个,那个高亮
+    goList (ID) {
+      this.todoId = ID
+    },
     addTodoList () {
       addTodo({}).then(data => {
         getTodoList({}).then(res => {
           if (res.status === 200) {
             this.items = res.data.todos
+            // 新添加的高亮
+            this.todoId = res.data.todos[res.data.todos.length - 1].id
           } else {
             console.log('请求失败')
           }
