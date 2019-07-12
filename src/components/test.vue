@@ -1,5 +1,5 @@
 <template>
-  <div>{{id}}1231323</div>
+  <div>{{'abc'}}</div>
 </template>
 
 <script>
@@ -15,6 +15,7 @@ export default {
       console.log(idd)
     }
   }
+
 }
 </script>
 

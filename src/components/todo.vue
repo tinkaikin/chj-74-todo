@@ -44,7 +44,7 @@
 
 <script>
 import item from './item'
-import {getTodo} from '../api/api.js'
+import {getTodo, addRecord} from '../api/api.js'
 export default {
   props: ['id'],
   components: {
@@ -67,30 +67,39 @@ export default {
     }
   },
   created () {
-    this.init(this.id)
+    this.init()
   },
   methods: {
     onAdd () {
+      // 添加一条 代办项目 没关联到数据库
       this.text = this.text.trim()
       if (this.text.length === 0) return
-      this.items.push({ checked: false, text: this.text, isDelete: false })
-      this.text = ''
+      // this.items.push({ checked: false, text: this.text, isDelete: false })
+      // 调用 接口 参数是对象 字节 id text
+      addRecord({
+        id: this.id,
+        text: this.text
+      }).then(res => {
+        // 成功后放回的结果
+        console.log(res)
+        this.text = ''
+        this.init()
+      })
     },
-    init (id) {
-      getTodo({id: id}).then(res => {
+    init () {
+      // 根据 id 值 获取对应的 todo内容
+      getTodo({id: this.id}).then(res => {
         const {status, data} = res
         if (status === 200) {
           this.todo = data.todo
           this.items = data.todo.record
         }
-        console.log(this.todo)
-        console.log(this.items)
       })
     }
   },
   watch: {
-    'id' (id) {
-      this.init(id)
+    'id' () {
+      this.init()
     }
   }
 }

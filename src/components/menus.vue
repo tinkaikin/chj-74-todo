@@ -32,20 +32,26 @@ export default {
     }
   },
   created () {
-    getTodoList({}).then(res => {
-      if (res.status === 200) {
-        this.items = res.data.todos
-        this.todoId = res.data.todos[0].id
-      } else {
-        console.log('请求失败')
-      }
-    })
+    // 初始化数据
+    this.getTodo()
   },
   methods: {
     // 点击那个,那个高亮
     goList (ID) {
       this.todoId = ID
     },
+    // 请求 数据库里面所有代办目录 并渲染
+    getTodo () {
+      getTodoList({}).then(res => {
+        if (res.status === 200) {
+          this.items = res.data.todos
+          this.todoId = res.data.todos[0].id
+        } else {
+          console.log('请求失败')
+        }
+      })
+    },
+    // 添加 一条目录 并重新渲染直接选中新添加的那一项
     addTodoList () {
       addTodo({}).then(data => {
         getTodoList({}).then(res => {

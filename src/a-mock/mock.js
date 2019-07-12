@@ -12,6 +12,7 @@ export default {
   // 调用 start() 初始化
   start () {
     let mock = new MockAdapter(axios) // 创建实例并关联axios
+    // 获取目录列表的请求
     mock.onGet('/todo/list').reply(params => {
       let mockTodo = Todos.map(tode => { // 重组 数据
         return {
@@ -36,7 +37,7 @@ export default {
         }, 200)
       })
     })
-    // 创建一个添加目录的请求
+    // 新增一条目录的请求
     mock.onPost('/todo/addTodo').reply(params => { // 要求params 是个对象并且有规定好的字段
       // 直接给Todos数组添加数据
       Todos.push({
@@ -54,16 +55,16 @@ export default {
       })
     })
 
-    // 通过id 请求数据
+    // 通过id获取目录单个列表
     mock.onGet('/todo/listId').reply(config => {
       let { id } = config.params // params是固定属性? 是api把params都传过来的
       let todo = Todos.find(todo => {
         return id && todo.id === id
       })
-      todo.count = todo.record.filter(data => {
-        return data.cheched === false
-      }).length
-
+      // todo.count (等待完成数目)等于 todo.record（代办事项列表下面未被选择的数据
+      todo ? todo.count = todo ? todo.record.filter((data) => {
+        return data.checked === false
+      }).length : null : todo = {}
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
@@ -84,6 +85,45 @@ export default {
             checked: false
           })
           return true // 为什么返回 布尔值?
+        }
+      })
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200])
+        }, 200)
+      })
+    })
+
+    // 修改目录标题
+    mock.onPost('/todo/editTodo').reply(config => {
+      let {
+        todo
+      } = JSON.parse(config.data)
+      Todos.some((t, index) => {
+        if (t.id === todo.id) {
+          t.title = todo.title
+          t.locked = todo.locked
+          t.isDelete = todo.isDelete
+          return true
+        }
+      })
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200])
+        }, 200)
+      })
+    })
+    // 修改Record标题
+    mock.onPost('/todo/editRecord').reply(config => {
+      let {
+        id,
+        record,
+        index
+      } = JSON.parse(config.data)
+      Todos.some((t) => {
+        if (t.id === id) {
+          t.record[index] = record
+          return true
         }
       })
       return new Promise((resolve, reject) => {
