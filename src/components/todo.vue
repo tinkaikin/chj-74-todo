@@ -93,7 +93,6 @@ export default {
         if (status === 200) {
           this.todo = data.todo
           this.items = data.todo.record
-          console.log(this.items)
         }
       })
     }
