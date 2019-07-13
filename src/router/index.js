@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Rayouts from '@/components/layouts'
 import Todo from '@/components/todo'
+import Login from '@/view/login'
 // import test from '@/components/test'
 
 Vue.use(Router)
@@ -18,6 +19,7 @@ export default new Router({
         component: Todo,
         props: true
       }]
-    }
+    },
+    { name: 'login', path: '/login', component: Login }
   ]
 })
