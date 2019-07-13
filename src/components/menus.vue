@@ -73,6 +73,6 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 @import "../a-common/style/menu.less";
 </style>

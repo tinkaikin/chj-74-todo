@@ -34,21 +34,21 @@
     <div class="content-scrollable list-items">
       <!-- <p>{{id}}</p>   测试id能正常传过来 -->
       <!--容器下半部分-->
-      <div v-for="(item,index) in items" :key="index"> <!-- 这里`v-for`会循环我们在 `data`函数 事先定义好的 ’items‘模拟数据，循环后拿到单个对象，在通过prop把数据传输给子组件 item -->
-      <!-- 下面应该切换成 2级路由 -->
-        <item :item="item"></item>
-      </div>
+      <Item v-for="(item,index) in items" :key="index" :item="item"></Item>
+      <!-- 这里`v-for`会循环我们在 `data`函数 事先定义好的 ’items‘模拟数据，循环后拿到单个对象，在通过prop把数据传输给子组件 item -->
+      <!-- <div v-for="(item,index) in items" :key="index">
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import item from './item'
+import Item from './item'
 import {getTodo, addRecord} from '../api/api.js'
 export default {
   props: ['id'],
   components: {
-    item
+    Item
   },
   data () {
     return {
@@ -93,6 +93,7 @@ export default {
         if (status === 200) {
           this.todo = data.todo
           this.items = data.todo.record
+          console.log(this.items)
         }
       })
     }
