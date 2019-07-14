@@ -96,6 +96,7 @@ export default {
 
     // 修改目录标题
     mock.onPost('/todo/editTodo').reply(config => {
+      console.log(config.data)
       let {
         todo
       } = JSON.parse(config.data)

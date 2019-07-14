@@ -14,7 +14,7 @@
       </h1>
       <div class="nav-group right"><!-- 右边的删除，锁定图标容器-->
         <div class="options-web">
-          <a class=" nav-item"> <!-- 锁定图标-->
+          <a class=" nav-item" @click="onlock"> <!-- 锁定图标-->
             <span class="icon-lock" v-if="todo.locked"></span>
             <span class="icon-unlock" v-else>
             </span>
@@ -34,7 +34,7 @@
     <div class="content-scrollable list-items">
       <!-- <p>{{id}}</p>   测试id能正常传过来 -->
       <!--容器下半部分-->
-      <Item v-for="(item,index) in items" :key="index" :item="item" :todoId="id" :itemIndex='index' :woquFn='init' ></Item>
+      <Item v-for="(item,index) in items" :key="index" :itemlala="item" :todoId="id" :itemIndex='index' :woquFn='init' ></Item>
       <!-- 这里`v-for`会循环我们在 `data`函数 事先定义好的 ’items‘模拟数据，循环后拿到单个对象，在通过prop把数据传输给子组件 item -->
       <!-- <div v-for="(item,index) in items" :key="index">
       </div> -->
@@ -44,7 +44,7 @@
 
 <script>
 import Item from './item'
-import {getTodo, addRecord} from '../api/api.js'
+import {getTodo, addRecord, upTodo} from '../api/api.js'
 export default {
   props: ['id'],
   components: {
@@ -63,12 +63,12 @@ export default {
         // { checked: false, text: '新的一天', isDelete: false },
         // { checked: false, text: '新的一天', isDelete: false }
       ],
-      text: '', // 新增代办单项绑定的值
+      text: '' // 新增代办单项绑定的值
       // isUpdate: false // 新增修改状态
     }
   },
   created () {
-    this.init()
+    this.init(this.id)
   },
   methods: {
     onAdd () {
@@ -87,20 +87,32 @@ export default {
         this.init()
       })
     },
-    init () {
+    init (idd) {
       // 根据 id 值 获取对应的 todo内容
-      getTodo({id: this.id}).then(res => {
+      getTodo({id: idd}).then(res => {
         const {status, data} = res
         if (status === 200) {
           this.todo = data.todo
           this.items = data.todo.record
+          console.log(this.items)
         }
       })
+      
+    },
+    onupTodo (upData) {
+      upTodo({todo:upData}).then(res=>{
+        console.log(res)
+      })
+    },
+    onlock () {
+      this.todo.locked = !this.todo.locked
+      this.onupTodo(this.todo)
     }
-  }, 
+  },
   watch: {
-    'id' () {
-      this.init()
+    'id' (idd) {
+      console.log(idd)
+      this.init(idd)
     }
   }
 }

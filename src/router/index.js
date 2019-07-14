@@ -22,14 +22,14 @@ const router = new Router({
     },
     { name: 'login', path: '/login', component: Login }
   ],
-  mode:'history'   //去掉地址栏上面的 #  自己玩的时候可以使用
+  mode: 'history'
 })
 router.beforeEach((to, from, next) => {
-  const user = window.sessionStorage.getItem('token')	//步骤9
-  if(to.path === '/login' && user) return next('/')
-  if (to.path === '/login') return next()	//步骤8当目标是到/login 放行
+  const user = window.sessionStorage.getItem('token')
+  if (to.path === '/login' && user) return next('/')
+  if (to.path === '/login') return next()
   if (user) return next()
-  next('/login')			//步骤10
+  next('/login')
 })
 
 export default router

@@ -1,17 +1,17 @@
 <template>
-  <div class="item-container">
-    <el-checkbox v-model="checked" class="checkbBox fl" @change='onupRecord'></el-checkbox>
+  <div class="item-container" v-show="!item.isDelete">
+    <el-checkbox v-model="item.checked" class="checkbBox fl" @change='onupRecord'></el-checkbox>
     <el-input
         type="text"
-        v-model="text"
+        v-model="item.text"
         maxlength="50"
         show-word-limit
         class="fl input-text"
-        :disabled="checked || locked"
+        :disabled="item.checked || item.locked"
         @blur="onupRecord"
       >
     </el-input>
-    <el-button type="danger" icon="el-icon-delete" circle class="fl" @click='deleItem'></el-button>
+    <el-button type="danger" icon="el-icon-delete" circle class="fl" @click='item.isDelete=true;item.checked=true;onupRecord()'></el-button>
   </div>
 </template>
 
@@ -20,61 +20,53 @@ import { upRecord } from '../api/api.js'
 export default {
   // :item="item" :todoId="id" :itemIndex='index' :init='init'
   //以后要做类型检查  
-  props: ["item",'todoId', 'itemIndex', 'woquFn'],
+  props: ["itemlala",'todoId', 'itemIndex', 'woquFn'],
   data() {
     return {
-      text: '',
-      checked: true,
-      locked:false
+      item:this.itemlala
+      // text: '',
+      // checked: true,
+      // locked:false,
+      // isDelete:false
     }
   },
   created() {
-    this.initData(this.item)
+    this.initData(this.itemlala)
   },
   methods: {
     initData(itemObj){
-      this.text = itemObj.text
-      this.checked = itemObj.checked
-    },
-    deleItem(){
-      console.log('todo 删除')
+      this.item = itemObj
     },
 
     //这里是把修改后的内容发送后台 (失去焦点后触发)
     onupRecord(){
       //1.获取修改后的数据 后 拼接成 新的record{ text: '',checked: true,locked:false}
-      const newRecord = {
-        text: this.text,
-        checked: this.checked,
-        locked:this.locked
-      }
-    //2.获取 id index的值
+      // const newRecord = {
+      //   text: this.text,
+      //   checked: this.checked,
+      //   locked:this.locked,
+      //   isDelete:this.isDelete
+      // }
+      //2.获取 id index的值
       // console.log(this.todoId)
       // console.log(this.itemIndex)
-        // console.log(this.woquFn)
-    //3.调用请求
+      // console.log(this.woquFn)
+      //3.调用请求
       upRecord({
         id:this.todoId,
-        record:newRecord,
+        record:this.item,
         index:this.itemIndex
       }).then(res=>{
         this.woquFn()
       })
     }
 
-
-
-
-
   },
   watch: {
-    "item"(item){
+    "itemlala"(item){
       this.initData(item)
     },
-    'itemIndex'(id){
-      console.log(id)
-    }
-  },
+  }
   
 }
 </script>
