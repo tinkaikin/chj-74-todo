@@ -24,4 +24,8 @@ export const addRecord = params => {
   return axios.post('/todo/addRecord', params).then(res => res.data)
 }
 
+//修改
+export const upRecord = params => {
+  return axios.post('/todo/editRecord', params)
+}
 

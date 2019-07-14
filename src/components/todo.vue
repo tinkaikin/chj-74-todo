@@ -34,7 +34,7 @@
     <div class="content-scrollable list-items">
       <!-- <p>{{id}}</p>   测试id能正常传过来 -->
       <!--容器下半部分-->
-      <Item v-for="(item,index) in items" :key="index" :item="item"></Item>
+      <Item v-for="(item,index) in items" :key="index" :item="item" :todoId="id" :itemIndex='index' :woquFn='init' ></Item>
       <!-- 这里`v-for`会循环我们在 `data`函数 事先定义好的 ’items‘模拟数据，循环后拿到单个对象，在通过prop把数据传输给子组件 item -->
       <!-- <div v-for="(item,index) in items" :key="index">
       </div> -->
@@ -63,7 +63,8 @@ export default {
         // { checked: false, text: '新的一天', isDelete: false },
         // { checked: false, text: '新的一天', isDelete: false }
       ],
-      text: '' // 新增代办单项绑定的值
+      text: '', // 新增代办单项绑定的值
+      // isUpdate: false // 新增修改状态
     }
   },
   created () {
@@ -96,7 +97,7 @@ export default {
         }
       })
     }
-  },
+  }, 
   watch: {
     'id' () {
       this.init()
