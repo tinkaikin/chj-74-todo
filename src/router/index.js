@@ -21,7 +21,8 @@ const router = new Router({
       }]
     },
     { name: 'login', path: '/login', component: Login }
-  ]
+  ],
+  mode:'history'   //去掉地址栏上面的 #  自己玩的时候可以使用
 })
 router.beforeEach((to, from, next) => {
   const user = window.sessionStorage.getItem('token')	//步骤9
