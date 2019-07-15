@@ -19,55 +19,55 @@
 import { upRecord } from '../api/api.js'
 export default {
   // :item="item" :todoId="id" :itemIndex='index' :init='init'
-  //以后要做类型检查  
-  props: ["itemlala",'todoId', 'itemIndex', 'woquFn'],
-  data() {
+  // 以后要做类型检查
+  props: ['itemlala', 'todoId', 'itemIndex', 'woquFn'],
+  data () {
     return {
-      item:this.itemlala
+      item: this.itemlala
       // text: '',
       // checked: true,
       // locked:false,
       // isDelete:false
     }
   },
-  created() {
+  created () {
     this.initData(this.itemlala)
   },
   methods: {
-    initData(itemObj){
+    initData (itemObj) {
       this.item = itemObj
     },
 
-    //这里是把修改后的内容发送后台 (失去焦点后触发)
-    onupRecord(){
-      //1.获取修改后的数据 后 拼接成 新的record{ text: '',checked: true,locked:false}
+    // 这里是把修改后的内容发送后台 (失去焦点后触发)
+    onupRecord () {
+      // 1.获取修改后的数据 后 拼接成 新的record{ text: '',checked: true,locked:false}
       // const newRecord = {
       //   text: this.text,
       //   checked: this.checked,
       //   locked:this.locked,
       //   isDelete:this.isDelete
       // }
-      //2.获取 id index的值
+      // 2.获取 id index的值
       // console.log(this.todoId)
       // console.log(this.itemIndex)
       // console.log(this.woquFn)
-      //3.调用请求
+      // 3.调用请求
       upRecord({
-        id:this.todoId,
-        record:this.item,
-        index:this.itemIndex
-      }).then(res=>{
+        id: this.todoId,
+        record: this.item,
+        index: this.itemIndex
+      }).then(res => {
         this.woquFn()
       })
     }
 
   },
   watch: {
-    "itemlala"(item){
+    'itemlala' (item) {
       this.initData(item)
-    },
+    }
   }
-  
+
 }
 </script>
 

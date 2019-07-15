@@ -97,10 +97,9 @@ export default {
           console.log(this.items)
         }
       })
-      
     },
     onupTodo (upData) {
-      upTodo({todo:upData}).then(res=>{
+      upTodo({todo: upData}).then(res => {
         console.log(res)
       })
     },

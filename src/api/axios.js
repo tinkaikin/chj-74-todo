@@ -21,7 +21,7 @@ axios1.interceptors.request.use(config => {
 axios1.interceptors.response.use(response => response, error => {
   // 做一些事情
   if (error.response.status === 401) {
-    // hash 哈希   是url后  #开始的字符串
+    // hash 哈希,是url后,#开始的字符串
     location.hash = '#/login' // 只能用原生的js 跳转了
   }
   return Promise.reject(error)

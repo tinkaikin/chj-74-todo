@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Rayouts from '@/components/layouts'
 import Todo from '@/components/todo'
 import Login from '@/view/login'
+import Home from '../view/Home'
 // import test from '@/components/test'
 
 Vue.use(Router)
@@ -10,8 +11,7 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/',
-      name: 'layouts',
+      path: '/todo',
       component: Rayouts,
       children: [{
         path: '/todo/:id',
@@ -20,10 +20,12 @@ const router = new Router({
         props: true
       }]
     },
-    { name: 'login', path: '/login', component: Login }
+    { name: 'login', path: '/login', component: Login },
+    { name: 'home', path: '/home', component: Home }
   ],
   mode: 'history'
 })
+// 路由前守卫
 router.beforeEach((to, from, next) => {
   const user = window.sessionStorage.getItem('token')
   if (to.path === '/login' && user) return next('/')
