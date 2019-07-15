@@ -68,7 +68,7 @@ export default {
     }
   },
   created () {
-    this.init(this.id)
+    this.init()
   },
   methods: {
     onAdd () {
@@ -87,14 +87,13 @@ export default {
         this.init()
       })
     },
-    init (idd) {
+    init () {
       // 根据 id 值 获取对应的 todo内容
-      getTodo({id: idd}).then(res => {
+      getTodo({id: this.id}).then(res => {
         const {status, data} = res
         if (status === 200) {
           this.todo = data.todo
           this.items = data.todo.record
-          console.log(this.items)
         }
       })
     },
@@ -109,9 +108,8 @@ export default {
     }
   },
   watch: {
-    'id' (idd) {
-      console.log(idd)
-      this.init(idd)
+    'id' () {
+      this.init()
     }
   }
 }

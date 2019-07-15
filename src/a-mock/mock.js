@@ -7,7 +7,6 @@ import MockAdapter from 'axios-mock-adapter'
 import Mock from 'mockjs'
 import { Todos } from './data/todoList.js'
 
-console.log(Todos)
 export default {
   // 调用 start() 初始化
   start () {
@@ -96,7 +95,6 @@ export default {
 
     // 修改目录标题
     mock.onPost('/todo/editTodo').reply(config => {
-      console.log(config.data)
       let {
         todo
       } = JSON.parse(config.data)

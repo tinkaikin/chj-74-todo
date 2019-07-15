@@ -21,6 +21,7 @@ const router = new Router({
       }]
     },
     { name: 'login', path: '/login', component: Login },
+    { path: '/', redirect: '/home' },
     { name: 'home', path: '/home', component: Home }
   ],
   mode: 'history'
