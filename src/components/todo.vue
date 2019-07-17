@@ -53,21 +53,12 @@ export default {
   data () {
     return {
       todo: {},
-      // todo: { // 详情内容
-      //   title: '星期一',
-      //   count: 12,
-      //   locked: false
-      // },
-      items: [ // 代办单项列表
-        // { checked: false, text: '新的一天', isDelete: false },
-        // { checked: false, text: '新的一天', isDelete: false },
-        // { checked: false, text: '新的一天', isDelete: false }
-      ],
-      text: '' // 新增代办单项绑定的值
-      // isUpdate: false // 新增修改状态
+      items: [],
+      text: null
     }
   },
   created () {
+    console.log(this.id)
     this.init()
   },
   methods: {
