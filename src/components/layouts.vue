@@ -1,5 +1,5 @@
 <template>
-  <section id="todo-layout" class="container">
+  <section class="container">
     <!--最外层容器-->
     <section class="menu">
       <!--左边的容器-->
@@ -24,7 +24,4 @@ export default {
 </script>
 <style lang="less">
 @import "../a-common/style/layouts.less";
-#todo-layout{
-  top:60px;
-}
 </style>
