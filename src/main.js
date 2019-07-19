@@ -7,6 +7,8 @@ import Mock from './a-mock' // 全局加载mock,执行初始化函数函数，�
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios1 from './api/axios'
+// 引入全局样式
+import './style/index.css'
 
 Vue.prototype.$http = axios1
 Mock.start()

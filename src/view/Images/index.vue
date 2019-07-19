@@ -40,10 +40,21 @@
       title="上传素材"
       :visible.sync="dialogVisible"
       width="300px">
-      <span>这是一段信息</span>
+      <!-- s=上传 -->
+      <el-upload
+        class="avatar-uploader"
+        action="http://ttapi.research.itcast.cn/mp/v1_0/user/images"
+        name='image'
+        :headers="headers"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+      >
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+      <!-- e=上传 -->
       <span slot="footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button @click="dialogVisible = false" :disabled="imageUrl===null">关 闭</el-button>
       </span>
     </el-dialog>
   </div>
@@ -63,13 +74,27 @@ export default {
       imgList: [],
       loading: false, // 加载动画
       total: 0, // 总条数
-      dialogVisible: false // 上传素材对话框
+      dialogVisible: false, // 上传素材对话框
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(window.sessionStorage.getItem('token')).token
+      },
+      imageUrl: null // 上传后返回的图片地址
     }
   },
   created () {
     this.getImgList()
   },
   methods: {
+    // 上传图片
+    handleAvatarSuccess (respons) {
+      this.imageUrl = respons.data.url
+      this.$message.success('上传图片成功')
+      window.setTimeout(() => {
+        this.dialogVisible = false
+        this.imageUrl = null
+        this.getImgList()
+      }, 2000)
+    },
     // 删除
     async deleteImg (id) {
       await this.$http.delete('user/images/' + id)
