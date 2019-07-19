@@ -7,6 +7,8 @@ import Home from '../view/Home'
 import NotFound from '@/view/404'
 import Welcome from '@/view/Welcome'
 import Images from '@/view/Images'
+import Publish from '../view/publish'
+import Fans from '../view/fans'
 // import test from '@/components/test'
 
 Vue.use(Router)
@@ -20,7 +22,9 @@ const router = new Router({
       component: Home,
       children: [
         { path: '/home', name: 'home', component: Welcome }, // 二级路由 首页
-        { name: 'images', path: '/images', component: Images }
+        { name: 'images', path: '/images', component: Images },
+        { name: 'publish', path: '/publish', component: Publish },
+        { name: 'fans', path: '/fans', component: Fans }
       ]
     },
     {
