@@ -14,7 +14,7 @@
           <el-radio-button label="true">收藏</el-radio-button>
         </el-radio-group>
         <!-- 右边普通按钮 -->
-        <el-button type="success" size="small" style="float:right">上传素材</el-button>
+        <el-button type="success" size="small" style="float:right"  @click="dialogVisible = true">上传素材</el-button>
       </div>
       <ul>
         <li v-for="item in imgList" :key="item.id">
@@ -36,10 +36,16 @@
       >
       </el-pagination>
     </el-card>
-    <div>
-      <!-- 左边按钮组 -->
-      <!-- 右边普通按钮组 -->
-    </div>
+    <el-dialog
+      title="上传素材"
+      :visible.sync="dialogVisible"
+      width="300px">
+      <span>这是一段信息</span>
+      <span slot="footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -56,7 +62,8 @@ export default {
       },
       imgList: [],
       loading: false, // 加载动画
-      total: 0 // 总条数
+      total: 0, // 总条数
+      dialogVisible: false // 上传素材对话框
     }
   },
   created () {
@@ -110,9 +117,11 @@ export default {
     flex-wrap: wrap;
     li{
       position: relative;
-      width: 180px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
       margin:15px 30px;
+      padding: 5px;
+      border: 1px dashed #ddd;
       .fot{
         position: absolute;
         left: 0;
@@ -134,8 +143,10 @@ export default {
       img{
         width: 100%;
         height: 100%;
+        object-fit: contain;
       }
     }
   }
+
 }
 </style>
