@@ -28,3 +28,9 @@ ul {
   height: 178px;
   display: block;
 }
+.my-image-container .el-dialog__body {
+  padding-bottom: 0;
+}
+.my-image-container .el-dialog__footer {
+  text-align: center;
+}
