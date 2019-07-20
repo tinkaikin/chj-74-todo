@@ -18,7 +18,6 @@
         :total="1000">
       </el-pagination>
     <!-- e=分页器 -->
-
     <!-- s=上传图片 -->
       <el-upload
         list-type="picture-card"
@@ -31,6 +30,12 @@
         <img width="100%" :src="dialogImageUrl" alt="">
       </el-dialog>
     <!-- e=上传图片 -->
+    <!-- s=测试 -->
+      <el-dialog :visible.sync="dialogVisible">
+          <img width="500" src="../../assets/images/timg.jpg" alt="">
+      </el-dialog>
+    <!-- e=测试 -->
+
   </div>
 </template>
 
